@@ -1,0 +1,655 @@
+openapi: 3.0.3
+info:
+  title: Bookmarks service
+  version: 0.26.4
+  description: The service stores links users (bookmarks) to websites.
+paths:
+  /api/register/:
+    post:
+      operationId: api_register_create
+      description: Register customuser.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterCustomUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterCustomUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterCustomUser'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterCustomUser'
+          description: ''
+  /api/bookmark-create/:
+    post:
+      operationId: api_bookmark_create_create
+      description: Bookmark create.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookmarkCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookmarkCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookmarkCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookmarkCreate'
+          description: ''
+  /api/bookmark-delete/{id}/:
+    delete:
+      operationId: api_bookmark_delete_destroy
+      description: Bookmark destroy.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/collection-create/:
+    post:
+      operationId: api_collection_create_create
+      description: Collection create.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CollectionCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CollectionCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionCreate'
+          description: ''
+  /api/bookmark-to-collection/{id}/:
+    put:
+      operationId: api_bookmark_to_collection_update
+      description: Add bookmark instance to collection.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookmarkToCollection'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookmarkToCollection'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookmarkToCollection'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookmarkToCollection'
+          description: ''
+    patch:
+      operationId: api_bookmark_to_collection_partial_update
+      description: Add bookmark instance to collection.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBookmarkToCollection'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBookmarkToCollection'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBookmarkToCollection'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookmarkToCollection'
+          description: ''
+  /api/collection-delete/{id}/:
+    delete:
+      operationId: api_collection_delete_destroy
+      description: Collection destroy.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/collection-update/{id}/:
+    put:
+      operationId: api_collection_update_update
+      description: Collection update.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionUpdate'
+          description: ''
+    patch:
+      operationId: api_collection_update_partial_update
+      description: Collection update.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCollectionUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCollectionUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCollectionUpdate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionUpdate'
+          description: ''
+  /api/collection/:
+    get:
+      operationId: api_collection_list
+      description: Collection list.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CollectionList'
+          description: ''
+  /api/collection-detail/{id}/:
+    get:
+      operationId: api_collection_detail_retrieve
+      description: Collection detail.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDetail'
+          description: ''
+  /api/bookmark/:
+    get:
+      operationId: api_bookmark_list
+      description: Bookmark list.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookmarkList'
+          description: ''
+  /api/bookmark-detail/{id}/:
+    get:
+      operationId: api_bookmark_detail_retrieve
+      description: Bookmark detail.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookmarkDetail'
+          description: ''
+  /api/logout/:
+    post:
+      operationId: api_logout_create
+      description: Users logout.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+components:
+  schemas:
+    BookmarkCreate:
+      type: object
+      description: |-
+        Serializer for creating a bookmark with Open Graph metadata extraction.
+
+        Fields:
+        - link (str): The URL of the bookmark.
+
+        Additional Fields (auto-generated from Open Graph metadata):
+        - title (str): The title of the webpage.
+        - description (str): The description of the webpage.
+        - link (str): The canonical URL of the webpage.
+        - link_type (str): The type of the webpage (default is 'website').
+        - owner (User): The user who owns the bookmark.
+        - image (ImageField): The image associated with the webpage.
+      properties:
+        link:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - link
+    BookmarkDetail:
+      type: object
+      description: Detail instance model.Collection.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        link:
+          type: string
+          format: uri
+          maxLength: 200
+        link_type:
+          $ref: '#/components/schemas/LinkTypeEnum'
+        image:
+          type: string
+          format: uri
+          nullable: true
+        created:
+          type: string
+          format: date
+          readOnly: true
+        changed:
+          type: string
+          format: date-time
+          readOnly: true
+        owner:
+          type: integer
+        collections:
+          type: array
+          items:
+            type: integer
+      required:
+      - changed
+      - created
+      - id
+      - link
+      - owner
+      - title
+    BookmarkList:
+      type: object
+      description: List model.Bookmark.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        link:
+          type: string
+          format: uri
+          maxLength: 200
+        link_type:
+          $ref: '#/components/schemas/LinkTypeEnum'
+        image:
+          type: string
+          format: uri
+          nullable: true
+        created:
+          type: string
+          format: date
+          readOnly: true
+        changed:
+          type: string
+          format: date-time
+          readOnly: true
+        owner:
+          type: integer
+        collections:
+          type: array
+          items:
+            type: integer
+      required:
+      - changed
+      - created
+      - id
+      - link
+      - owner
+      - title
+    BookmarkToCollection:
+      type: object
+      description: Add a bookmark to a collection.
+      properties:
+        collections:
+          type: array
+          items:
+            type: integer
+    CollectionCreate:
+      type: object
+      description: Serializer for creating instance model.Collection.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+      required:
+      - description
+      - name
+    CollectionDetail:
+      type: object
+      description: Detail instance model.Collection.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        bookmarks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookmarkList'
+          readOnly: true
+      required:
+      - bookmarks
+      - description
+      - name
+    CollectionList:
+      type: object
+      description: List model.Collection.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        detail:
+          type: string
+          format: uri
+          readOnly: true
+      required:
+      - description
+      - detail
+      - name
+    CollectionUpdate:
+      type: object
+      description: Update instance model.Collection.
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    LinkTypeEnum:
+      enum:
+      - website
+      - book.article
+      - music
+      - video
+      type: string
+      description: |-
+        * `website` - website
+        * `book.article` - book.article
+        * `music` - music
+        * `video` - video
+    PatchedBookmarkToCollection:
+      type: object
+      description: Add a bookmark to a collection.
+      properties:
+        collections:
+          type: array
+          items:
+            type: integer
+    PatchedCollectionUpdate:
+      type: object
+      description: Update instance model.Collection.
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    RegisterCustomUser:
+      type: object
+      description: Serializer for registering a new custom user.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password1:
+          type: string
+          writeOnly: true
+          title: Password
+        password2:
+          type: string
+          writeOnly: true
+          title: Password repeat
+      required:
+      - email
+      - password1
+      - password2
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
