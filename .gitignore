@@ -9,3 +9,6 @@ env.bak/
 venv.bak/
 __pycache__/
 /templates/
+/media/images
+/media/images/
+/media

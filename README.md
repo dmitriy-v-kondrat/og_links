@@ -2,11 +2,6 @@ Python 3.8.10
 
 Django 4.2.7
 
-Create a folder named 'media' in the root of the project,
-then create a folder named 'images' inside the 'media' folder.
-
-    media/images/
-
 
 Add the .env file to the project root and edit it.
 

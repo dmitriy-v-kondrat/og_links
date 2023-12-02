@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     'api',
+    'django_cleanup.apps.CleanupConfig',
     ]
 
 AUTH_USER_MODEL = "api.CustomUser"
